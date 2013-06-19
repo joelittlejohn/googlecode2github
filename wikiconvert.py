@@ -56,6 +56,7 @@ def convert_file(proj_id, src_path, dst_dir):
         s_from_hash[hash] = _indent(pre)
         return hash
     text = re.compile(r'^{{{\n(.*?)^}}}', re.M|re.S).sub(sub_pre_block, text)
+    text = re.compile(r'^{{{(.*?)}}}\s*$', re.M).sub(lambda m: "`%s`\n"%m.group(1).strip(), text)
 
     # Headings.
     text = re.compile(r'^===(.*?)===\s*$', re.M).sub(lambda m: "### %s\n"%m.group(1).strip(), text)
